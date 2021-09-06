@@ -2,7 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
-import { Form, Button } from 'react-bootstrap'
+import Weather from './Component/Weather';
+import { Form, Button } from 'react-bootstrap';
 import './App.css';
 class App extends React.Component {
 
@@ -14,7 +15,9 @@ class App extends React.Component {
       lon:'',
       displayname:'',
       flag:false,
-      flagErr:false
+      flagErr:false,
+      forecast:{},
+      flageWeather:false
     }
 
   }
@@ -25,17 +28,21 @@ class App extends React.Component {
     console.log(cityName);
     // process.env.REACT_APP.LOCATION;
     // const aseelKey='pk.69bdef83e3eb40b7dc8a82c63b9e581e';
-    const URL= `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONS}&q=${cityName}&zoom=18&format=json`;
-
-     console.log(URL); 
+    const URL= `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONS}&q=${cityName}&format=json`;
+    const wurl=`${process.env.REACT_APP_WEATHER}/getWeatherinfo?cityName=${cityName}`;
+    
+    console.log(URL); 
      try {
       let finalResult=await axios.get(URL);
+      let weatherurl=await axios.get(wurl);
       console.log(finalResult);
       this.setState({
        lat:finalResult.data[0].lat,
         lon:finalResult.data[0].lon,
         displayname:finalResult.data[0].display_name,
-        flag:true
+        flag:true,
+        flageWeather:true,
+        forecast:weatherurl.data
       })
        
      } catch (error) {
@@ -49,6 +56,7 @@ class App extends React.Component {
   }
 
 
+
   render(){ 
     return(
 
@@ -56,7 +64,7 @@ class App extends React.Component {
       <Header/>
       <h1>What would you like to Explore?</h1>
       <Form onSubmit={this.getLocation}> 
-  <Form.Group className="mb-3" controlId="location">
+     <Form.Group className="mb-3" controlId="location">
     <Form.Control type="text" namr="location"placeholder="Enter location " />
   
   </Form.Group>
@@ -73,11 +81,15 @@ class App extends React.Component {
       
 
       {this.state.flag&& <img 
-      src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONS}&center=${this.state.lat},${this.state.lon}&zoom=[1 to 18]`} 
+      src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONS}&center=${this.state.lat},${this.state.lon}`} 
       alt='displaymap'></img>};
-
+      
+      
    
-
+    <Weather
+    data={this.state.forecast}
+    flageWeather={this.state.flageWeather}
+    /> 
     <Footer/>
 
      </>
