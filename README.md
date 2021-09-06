@@ -1,3 +1,13 @@
+Name of feature: return Weather informaion for city 
+
+Estimate of time needed to complete: 2 hours
+
+Start time:2:30
+
+Finish time: 8:30 
+
+Actual time needed to complete:6 hours
+---------------
 Name of feature: return Location 
 
 Estimate of time needed to complete: 2 hours
