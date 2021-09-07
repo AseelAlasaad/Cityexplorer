@@ -8,9 +8,9 @@ class Weather extends React.Component{
          {this.props.flageWeather &&
          this.props.data.map((item)=>(
              <>
-             <p>des:{item.description}</p>
-             <p>data:{item.data}</p>
-             <p>Temp:{item.max_temp}</p>
+             <p>{item.description}</p>
+             <p>{item.date}</p>
+             
              </>
          ))}
 
