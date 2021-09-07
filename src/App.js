@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
 import Weather from './Component/Weather';
+import Movie from './Component/Movie';
 import { Form, Button } from 'react-bootstrap';
 import './App.css';
 class App extends React.Component {
@@ -20,7 +21,10 @@ class App extends React.Component {
      
    
       forecast:[],
-      flageWeather:false
+      flageWeather:false,
+
+      movie:{},
+      movieFlag:false
     }
 
   }
@@ -32,13 +36,14 @@ class App extends React.Component {
     // process.env.REACT_APP.LOCATION;
     // const aseelKey='pk.69bdef83e3eb40b7dc8a82c63b9e581e';
     const URL= `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONS}&q=${locationName}&format=json`;
-    const wurl=`https://cityxplorer-server.herokuapp.com/getWeatherinfo?cityName=${locationName}`;
-
+    const wurl=`https://cityxplorer-server.herokuapp.com/getWeatherinfo?lat=${this.state.lat}&lon=${this.state.lon}`;
+    const movieurl=`https://cityxplorer-server.herokuapp.com/getMovie?cityName=${locationName}`;
     console.log(URL); 
     console.log(wurl); 
      try {
       let finalResult=await axios.get(URL);
       let weatherurl=await axios.get(wurl);
+      let movieResult=await axios.get(movieurl);
 
       console.log(finalResult);
       this.setState({
@@ -47,7 +52,9 @@ class App extends React.Component {
         displayname:finalResult.data[0].display_name,
         flag:true,
         flageWeather:true,
-        forecast:weatherurl.data
+        forecast:weatherurl.data,
+        movie:movieResult.data,
+        movieFlag:true
     
       })
        
@@ -96,6 +103,9 @@ class App extends React.Component {
     data={this.state.forecast}
     flageWeather={this.state.flageWeather}
     /> 
+
+    <Movie data={this.state.movie}
+    movieFlag={this.state.movieFlag}/>
     <Footer/>
 
      </>
