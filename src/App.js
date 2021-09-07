@@ -14,9 +14,12 @@ class App extends React.Component {
       lat:'',
       lon:'',
       displayname:'',
+     
       flag:false,
       flagErr:false,
-      forecast:{},
+     
+   
+      forecast:[],
       flageWeather:false
     }
 
@@ -24,17 +27,19 @@ class App extends React.Component {
 
   getLocation=async (event)=>{
     event.preventDefault();
-    const cityName=event.target.location.value;
-    console.log(cityName);
+    const locationName=event.target.location.value;
+    
     // process.env.REACT_APP.LOCATION;
     // const aseelKey='pk.69bdef83e3eb40b7dc8a82c63b9e581e';
-    const URL= `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONS}&q=${cityName}&format=json`;
-    const wurl=`${process.env.REACT_APP_WEATHER}/getWeatherinfo?cityName=${cityName}`;
-    
+    const URL= `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONS}&q=${locationName}&format=json`;
+    const wurl=`https://cityxplorer-server.herokuapp.com/getWeatherinfo?cityName=${locationName}`;
+
     console.log(URL); 
+    console.log(wurl); 
      try {
       let finalResult=await axios.get(URL);
       let weatherurl=await axios.get(wurl);
+
       console.log(finalResult);
       this.setState({
        lat:finalResult.data[0].lat,
@@ -43,6 +48,7 @@ class App extends React.Component {
         flag:true,
         flageWeather:true,
         forecast:weatherurl.data
+    
       })
        
      } catch (error) {
@@ -51,10 +57,10 @@ class App extends React.Component {
          flagErr:true
        })
      }
-  
+     
  
   }
-
+ 
 
 
   render(){ 
@@ -65,7 +71,7 @@ class App extends React.Component {
       <h1>What would you like to Explore?</h1>
       <Form onSubmit={this.getLocation}> 
      <Form.Group className="mb-3" controlId="location">
-    <Form.Control type="text" namr="location"placeholder="Enter location " />
+    <Form.Control type="text" name="location"placeholder="Enter location " />
   
   </Form.Group>
 
@@ -82,7 +88,7 @@ class App extends React.Component {
 
       {this.state.flag&& <img 
       src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONS}&center=${this.state.lat},${this.state.lon}`} 
-      alt='displaymap'></img>};
+      alt='displaymap'></img>}
       
       
    
