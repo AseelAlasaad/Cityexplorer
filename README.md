@@ -1,3 +1,28 @@
+Name of feature: return weather and movie 
+
+Estimate of time needed to complete: 2 hours
+
+Start time:3
+
+Finish time: 7
+
+Actual time needed to complete:4 hours
+
+
+
+Name of feature: return weather
+
+Estimate of time needed to complete: 2 hours
+
+Start time:1:30
+
+Finish time: 5:30 
+
+Actual time needed to complete:4 hours
+
+
+
+
 Name of feature: return Location 
 
 Estimate of time needed to complete: 2 hours
