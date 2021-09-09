@@ -3,46 +3,49 @@ import { Card, Col,Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 class Movie extends React.Component {
     render() {
+        
 
         return (
 
-            <> <Row xs={1} md={3} className="g-4">
+            <div> 
+            <Row xs={1} md={3} className="g-4">
                 {
                     this.props.dataMovie.map((element, key) => (
-                        <>
+                        <div key={key}>
+                        
 
                            <Col>
-                            <Card style={{ width: '18rem' }}>
+                            <Card style={{ width: '18rem' }} >
 
                                 <Card.Body>
-                                    <Card.Title>Movies</Card.Title>
+                                    <Card.Title>Title: {element.title}</Card.Title>
                                     <Card.Text>
-                                        <p>Title    : {element.title}</p>
-                                        <p>overview : {element.overview}</p>
-                                        <p>
+                                       overview : {element.overview}</Card.Text>
+                                      
+                                       <Card.Text>
                                         vote_average:  {element.vote_average}
-                                        </p>
+                                        </Card.Text>
 
-                                        <p>
+                                        <Card.Text>
                                         vote_count  :  {element.vote_count}
-                                        </p>
+                                        </Card.Text>
 
-                                        <p>
-                                        popularity :  {element.popularity}
-                                        </p>
-
+                                        <Card.Text>
+                                        popularity :  {element.popularity}                                       
                                     </Card.Text>
 
                                 </Card.Body>
                             </Card>
                             </Col>
                         
-                        </>
+                      
+                        </div>
 
-                    ))}</Row>
+                    ))}
+                    </Row>
 
 
-            </>
+            </div>
 
         );
     }
